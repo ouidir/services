@@ -35,11 +35,11 @@ class MetrisFileExporter
             } elseif (!($fp = fopen($file['name'], "w"))) {
                 $reponse = ExportResult::fileError($file['name']);
             } else {
+                fputs($fp, $file['data']);
+                fclose($fp);
                 $reponse = ExportResult::success($info->getFilename());
             }
 
-            fputs($fp, $file['data']);
-            fclose($fp);
             $reponses[] = $reponse->toArray();
         }
 
